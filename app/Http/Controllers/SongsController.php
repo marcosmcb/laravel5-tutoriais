@@ -8,36 +8,57 @@ use App\Http\Controllers\Controller;
 
 use App\Song;
 
-class SongsController extends Controller
-{
+class SongsController extends Controller{
     //
 
+    private $song;
 
-    public function index(Song $song){
-
-    	$songs = $song->get();
-
-    	return view('songs.index', compact('songs'));
-    
+    public function __construct(Song $song){
+        $this->song = $song;
     }
 
-    public function show(Song $song){
+
+    public function index(){
+
+    	$songs = $this->song->get();
+
+    	return view('songs.index', compact('songs'));    
+    }
+
+    public function show($slug){
     
-    	//$song = Song::whereSlug($slug)->first();
+    	$song = $this->song->whereSlug($slug)->first();
     
     	return view('songs.show', compact('song'));
     }
 
-    private function getSongs(){
+    //private function getSongs(){
     	
-    	return ['Boyfriend', 'Be Alright', 'Fall'];
+    //	return ['Boyfriend', 'Be Alright', 'Fall'];
     	
+    //}
+
+    public function edit($slug){
+
+        $song = $this->song->whereSlug($slug)->first();
+        
+        return view('songs.edit', compact('song'));
     }
 
-    public function edit(Song $song){
+    public function update($slug, Request $request ){
+        //dd(\Request::get('title'));
+        //return 'Update the song';
+    
+        $song = $this->song->whereSlug($slug)->first();
 
-        return 'Edit the song with a title of ' . $song->title;
+        //$song->fill(['title' => $request->get('title')])->save();
+        
+        $song->fill($request->input())->save();
 
-        return view('songs.edit', compact('song'));
+        //$song->title = $request->get('title');
+        //$song->save();
+
+        return redirect('songs');
+
     }
 }

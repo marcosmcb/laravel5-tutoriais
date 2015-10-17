@@ -31,6 +31,8 @@ Route::bind('song', function($slug){
 
 get('songs', 'SongsController@index');
 
-get('songs/{song}', 'SongsController@show');
+get('songs/{slug}', 'SongsController@show');
 
-get('songs/{song}/edit', 'SongsController@edit');
+get('songs/{slug}/edit', 'SongsController@edit');
+
+patch( 'songs/{slug}', 'SongsController@update');
