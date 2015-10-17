@@ -25,7 +25,12 @@ Route::get('/', function () {
 //singleton
 //$router->get();
 
+Route::bind('song', function($slug){
+	return App\Song::where('slug', $slug)->first();
+});
 
 get('songs', 'SongsController@index');
 
-get('songs/{id}', 'SongsController@show');
+get('songs/{song}', 'SongsController@show');
+
+get('songs/{song}/edit', 'SongsController@edit');

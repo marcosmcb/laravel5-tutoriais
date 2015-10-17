@@ -6,27 +6,24 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use DB;
-
+use App\Song;
 
 class SongsController extends Controller
 {
     //
 
 
-    public function index(){
+    public function index(Song $song){
 
-    	$songs = DB::table('songs')->get();
-
-        //dd($songs);
+    	$songs = $song->get();
 
     	return view('songs.index', compact('songs'));
     
     }
 
-    public function show($id){
+    public function show(Song $song){
     
-    	$song = DB::table('songs')->find($id);
+    	//$song = Song::whereSlug($slug)->first();
     
     	return view('songs.show', compact('song'));
     }
@@ -35,5 +32,12 @@ class SongsController extends Controller
     	
     	return ['Boyfriend', 'Be Alright', 'Fall'];
     	
+    }
+
+    public function edit(Song $song){
+
+        return 'Edit the song with a title of ' . $song->title;
+
+        return view('songs.edit', compact('song'));
     }
 }
