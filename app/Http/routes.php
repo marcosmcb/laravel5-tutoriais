@@ -29,10 +29,37 @@ Route::bind('song', function($slug){
 	return App\Song::where('slug', $slug)->first();
 });
 
-get('songs', 'SongsController@index');
+//get('songs', 'SongsController@index');
 
-get('songs/{slug}', 'SongsController@show');
+//get('songs/{slug}', 'SongsController@show');
 
-get('songs/{slug}/edit', 'SongsController@edit');
+//get('songs/{slug}/edit', 'SongsController@edit');
 
-patch( 'songs/{slug}', 'SongsController@update');
+//patch( 'songs/{slug}', 'SongsController@update');
+
+
+//$router->get('music', ['as' => 'songs_path', 'uses' => 'SongsController@index' ]);
+
+//$router->get('music/{slug}', ['as' => 'song_path', 'uses' => 'SongsController@show' ]);
+
+/*$router->resource('songs', 'SongsController', [
+
+	'only' => [	'index', 'show', 'edit', 'update']
+
+	]);*/
+/*
+$router->resource('{artist/songs}', 'SongsController', [
+
+			'names' => [
+
+				'index' => 'songs_path',
+				'show' => 'song_path'
+
+			],
+
+			'only' => ['index', 'show'],
+
+	]);
+*/
+
+$router->resource('songs', 'SongsController');
