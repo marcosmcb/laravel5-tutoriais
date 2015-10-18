@@ -61,4 +61,15 @@ class SongsController extends Controller{
         return redirect('songs');
 
     }
+
+
+    public function create(){
+
+        return view('songs.create');
+    }
+
+    public function store(Request $request, Song $song){
+        $song->create($request->all());
+        return redirect()->route('songs.index');
+    }
 }
